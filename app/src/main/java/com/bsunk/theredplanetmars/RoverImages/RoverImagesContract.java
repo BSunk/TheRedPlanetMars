@@ -10,7 +10,7 @@ public interface RoverImagesContract {
 
     interface View {
 
-       // void setProgressIndicator(boolean active);
+        void setProgressIndicator(boolean active);
 
        // void showImageDetails(String imageID);
 

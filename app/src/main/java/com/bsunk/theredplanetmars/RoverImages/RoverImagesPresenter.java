@@ -28,6 +28,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
 
     @Override
     public void loadImages(boolean forceUpdate) {
+        mRoverImagesView.setProgressIndicator(true);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Observable<Photos> call = apiService.getPhotos("2016-9-1", API_KEY);
 
@@ -47,6 +48,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
                     @Override
                     public void onNext(Photos photos) {
                         mRoverImagesView.showImages(photos);
+                        mRoverImagesView.setProgressIndicator(false);
                     }
                 });
     }
