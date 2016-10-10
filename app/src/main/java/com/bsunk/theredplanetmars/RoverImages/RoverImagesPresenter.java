@@ -1,12 +1,9 @@
 package com.bsunk.theredplanetmars.roverimages;
 
 import android.support.annotation.NonNull;
-import android.widget.Toast;
-
 import com.bsunk.theredplanetmars.model.Photos;
 import com.bsunk.theredplanetmars.rest.ApiClient;
 import com.bsunk.theredplanetmars.rest.ApiInterface;
-
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -20,6 +17,11 @@ import static com.bsunk.theredplanetmars.BuildConfig.API_KEY;
 
 public class RoverImagesPresenter implements RoverImagesContract.UserActionsListener {
 
+    public static int CURIOSITY = 0;
+    public static int OPPORTUNITY = 1;
+    public static int SPIRIT = 2;
+    public static String ROVER_KEY = "rover_key";
+
     private final RoverImagesContract.View mRoverImagesView;
 
     public RoverImagesPresenter( @NonNull RoverImagesContract.View roverView) {
@@ -27,10 +29,24 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
     }
 
     @Override
-    public void loadImages(boolean forceUpdate) {
-        mRoverImagesView.setProgressIndicator(true);
+    public void loadImages(final boolean forceUpdate, int roverID) {
+        if(!forceUpdate) {
+        mRoverImagesView.setProgressIndicator(true); }
+
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Observable<Photos> call = apiService.getPhotos("2016-9-1", API_KEY);
+        Observable<Photos> call = apiService.getCuriosityPhotos("2016-9-1", API_KEY);
+
+        switch (roverID) {
+            case 0:
+                call = apiService.getCuriosityPhotos("2016-9-1", API_KEY);
+                break;
+            case 1:
+                call = apiService.getOpportunityPhotos("2016-9-1", API_KEY);
+                break;
+            case 2:
+                call = apiService.getSpiritPhotos("2016-9-1", API_KEY);
+                break;
+        }
 
         call.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -39,16 +55,15 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
                     public void onCompleted() {
 
                     }
-
                     @Override
                     public void onError(Throwable e) {
 
                     }
-
                     @Override
                     public void onNext(Photos photos) {
                         mRoverImagesView.showImages(photos);
                         mRoverImagesView.setProgressIndicator(false);
+                        if(forceUpdate){ mRoverImagesView.setRefreshIndicator(false);}
                     }
                 });
     }

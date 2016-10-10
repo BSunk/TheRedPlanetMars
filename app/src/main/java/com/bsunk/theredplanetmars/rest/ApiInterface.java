@@ -13,6 +13,12 @@ import rx.Observable;
 public interface ApiInterface {
 
     @GET("curiosity/photos")
-    Observable<Photos> getPhotos(@Query("earth_date") String earthDate, @Query("api_key") String apiKey);
+    Observable<Photos> getCuriosityPhotos(@Query("earth_date") String earthDate, @Query("api_key") String apiKey);
+
+    @GET("spirit/photos")
+    Observable<Photos> getSpiritPhotos(@Query("earth_date") String earthDate, @Query("api_key") String apiKey);
+
+    @GET("opportunity/photos")
+    Observable<Photos> getOpportunityPhotos(@Query("earth_date") String earthDate, @Query("api_key") String apiKey);
 
 }

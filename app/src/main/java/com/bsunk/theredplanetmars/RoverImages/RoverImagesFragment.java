@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,8 +18,6 @@ import com.bsunk.theredplanetmars.R;
 import com.bsunk.theredplanetmars.model.Photos;
 import com.bumptech.glide.Glide;
 
-import java.util.List;
-
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -26,8 +25,10 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
 
     private RoverImagesContract.UserActionsListener mActionsListener;
     private RoverImagesAdapter mListAdapter;
+    int rover=0;
     RecyclerView recyclerView;
     ProgressBar loadingIndicator;
+    SwipeRefreshLayout refreshLayout;
     Photos mPhotos;
 
     public RoverImagesFragment() {
@@ -44,7 +45,7 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     @Override
     public void onResume() {
         super.onResume();
-        mActionsListener.loadImages(false);
+        mActionsListener.loadImages(false, rover);
     }
 
     @Override
@@ -56,10 +57,30 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        rover = args.getInt(RoverImagesPresenter.ROVER_KEY);
+
         View rootView = inflater.inflate(R.layout.fragment_rover_images, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.images_list);
         loadingIndicator = (ProgressBar) rootView.findViewById(R.id.loading);
+        refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshContent(); }
+            });
         return rootView;
+    }
+
+    private void refreshContent(){
+        mActionsListener.loadImages(true, rover);
+    }
+
+    @Override
+    public void setRefreshIndicator(boolean active) {
+        if(!active) {
+            refreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
@@ -109,9 +130,9 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         @Override
         public void onBindViewHolder(RoverImagesAdapter.ViewHolder viewHolder, int position) {
             TextView textView = viewHolder.cameraItem;
-            textView.setText(mPhotos.getPhotos().get(position).getCamera().getName());
+            textView.setText(mPhotos.getPhotos().get(position).getCamera().getFullName());
             ImageView imageView = viewHolder.imageItem;
-            Glide.with(mContext).load(mPhotos.getPhotos().get(position).getImgSrc()).into(imageView);
+            Glide.with(mContext).load(mPhotos.getPhotos().get(position).getImgSrc()).placeholder(R.drawable.no_pic).into(imageView);
         }
 
         @Override

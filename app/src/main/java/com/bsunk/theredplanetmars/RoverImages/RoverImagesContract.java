@@ -16,11 +16,13 @@ public interface RoverImagesContract {
 
         void showImages(Photos photos);
 
+        void setRefreshIndicator(boolean active);
+
     }
 
     interface UserActionsListener {
 
-        void loadImages(boolean forceUpdate);
+        void loadImages(boolean forceUpdate, int roverID);
 
     }
 }
