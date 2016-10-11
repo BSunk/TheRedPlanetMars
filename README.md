@@ -15,4 +15,7 @@ Need to implement:
  - Add testing 
  - Improve drawerlayout
  
- 
+ ##Screenshots
+<img src="/screenshots/Screenshot_1476215187.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_1476215192.png" alt="image" width="400">
+
