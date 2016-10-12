@@ -18,10 +18,6 @@ public class RoverImagesDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rover_images_details);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         String obj = getIntent().getStringExtra(RoverImagesFragment.PHOTO_KEY);
 
@@ -36,4 +32,9 @@ public class RoverImagesDetails extends AppCompatActivity {
                     .commit();
         }
     }
+
+    public void backButtonOnClick(View view) {
+        onBackPressed();
+    }
+
 }

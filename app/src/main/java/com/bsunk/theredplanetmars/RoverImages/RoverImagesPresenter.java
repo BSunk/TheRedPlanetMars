@@ -73,9 +73,4 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
                 });
     }
 
-    @Override
-    public void openPhotoDetails(@NonNull Photo photo) {
-        mRoverImagesView.showImageDetails(photo);
-    }
-
 }

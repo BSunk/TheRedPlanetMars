@@ -3,6 +3,8 @@ package com.bsunk.theredplanetmars.roverimages;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -50,12 +52,21 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     @Override
     public void onResume() {
         super.onResume();
-        mActionsListener.loadImages(false, rover);
+       // mActionsListener.loadImages(false, rover);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState!=null) {
+            Gson gson = new Gson();
+            String obj = savedInstanceState.getString("data");
+            mPhotos = gson.fromJson(obj, Photos.class);
+        }
+        else {
+            mActionsListener.loadImages(false, rover);
+        }
+
         setRetainInstance(true);
     }
 
@@ -76,13 +87,21 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
             public void onRefresh() {
                 refreshContent(); }
             });
+
         return rootView;
+    }
+
+    @Override
+     public void onSaveInstanceState(Bundle bundle) {
+        Gson gson = new Gson();
+        bundle.putString("data", gson.toJson(mPhotos));
+        super.onSaveInstanceState(bundle);
     }
 
     ImageItemListener mItemListener = new ImageItemListener() {
         @Override
-        public void onPhotoClick(Photo clickedPhoto) {
-            mActionsListener.openPhotoDetails(clickedPhoto);
+        public void onPhotoClick(Photo clickedPhoto, View v) {
+            showImageDetails(clickedPhoto, v);
         }
     };
 
@@ -118,12 +137,14 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         }
     }
 
-    @Override
-    public void showImageDetails(Photo photo) {
+    public void showImageDetails(Photo photo, View v) {
         Intent intent = new Intent(getActivity(), RoverImagesDetails.class);
+        String imageTransition = getString(R.string.image_transition_string);
+        ImageView imageView = (ImageView) v.findViewById(R.id.image_item);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), imageView, imageTransition);
         Gson gson = new Gson(); //serialize data with gson
         intent.putExtra(PHOTO_KEY, gson.toJson(photo));
-        startActivity(intent);
+        ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
     }
 
     @Override
@@ -145,6 +166,10 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
             noImages.setVisibility(View.GONE);
         }
     }
+
+
+
+
 
     //RecyclerView Adapter for images on main screen.
     public class RoverImagesAdapter extends RecyclerView.Adapter<RoverImagesAdapter.ViewHolder> {
@@ -205,14 +230,14 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
             public void onClick(View v) {
                 int position = getAdapterPosition();
                 Photo photo = getItem(position);
-                mItemListener.onPhotoClick(photo);
+                mItemListener.onPhotoClick(photo, v);
             }
 
         }
     }
 
     public interface ImageItemListener {
-        void onPhotoClick(Photo clickedPhoto);
+        void onPhotoClick(Photo clickedPhoto, View v);
     }
 
 }

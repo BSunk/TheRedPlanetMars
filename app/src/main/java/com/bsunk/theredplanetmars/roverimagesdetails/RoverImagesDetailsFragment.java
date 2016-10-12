@@ -34,7 +34,7 @@ public class RoverImagesDetailsFragment extends Fragment {
         String obj = arguments.getString(RoverImagesFragment.PHOTO_KEY);
         Photo photo = gson.fromJson(obj, Photo.class);
 
-        Glide.with(getContext()).load(photo.getImgSrc()).placeholder(R.drawable.no_pic).into(imageView);
+        Glide.with(getContext()).load(photo.getImgSrc()).into(imageView);
 
         return rootView;
 

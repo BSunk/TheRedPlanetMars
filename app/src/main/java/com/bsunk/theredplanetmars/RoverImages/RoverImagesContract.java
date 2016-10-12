@@ -15,8 +15,6 @@ public interface RoverImagesContract {
 
         void setProgressIndicator(boolean active);
 
-        void showImageDetails(Photo photo);
-
         void showImages(Photos photo);
 
         void setRefreshIndicator(boolean active);
@@ -28,8 +26,6 @@ public interface RoverImagesContract {
     interface UserActionsListener {
 
         void loadImages(boolean forceUpdate, int roverID);
-
-        void openPhotoDetails(@NonNull Photo photo);
 
     }
 }
