@@ -12,6 +12,15 @@
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/no_images_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:text="@string/no_images"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,7 +36,6 @@
             android:paddingLeft="@dimen/rover_images_activity_horizontal_margin"
             android:paddingRight="@dimen/rover_images_activity_horizontal_margin"
             android:paddingTop="@dimen/rover_images_activity_vertical_margin"/>
-
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

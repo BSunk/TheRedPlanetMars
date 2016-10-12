@@ -1,6 +1,9 @@
 package com.bsunk.theredplanetmars.roverimages;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.model.Photos;
 import com.bsunk.theredplanetmars.rest.ApiClient;
 import com.bsunk.theredplanetmars.rest.ApiInterface;
@@ -52,20 +55,27 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Photos>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
+                    public void onCompleted() {}
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.v("LOG", e.toString());
+                        mRoverImagesView.showListEmpty(true);
+                        mRoverImagesView.setProgressIndicator(false);
+                        if(forceUpdate){ mRoverImagesView.setRefreshIndicator(false);}
                     }
                     @Override
                     public void onNext(Photos photos) {
+                        mRoverImagesView.showListEmpty(false);
                         mRoverImagesView.showImages(photos);
                         mRoverImagesView.setProgressIndicator(false);
                         if(forceUpdate){ mRoverImagesView.setRefreshIndicator(false);}
                     }
                 });
+    }
+
+    @Override
+    public void openPhotoDetails(@NonNull Photo photo) {
+        mRoverImagesView.showImageDetails(photo);
     }
 
 }

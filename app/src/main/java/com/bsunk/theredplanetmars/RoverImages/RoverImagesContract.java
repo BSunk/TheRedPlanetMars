@@ -1,5 +1,8 @@
 package com.bsunk.theredplanetmars.roverimages;
 
+import android.support.annotation.NonNull;
+
+import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.model.Photos;
 
 /**
@@ -12,17 +15,21 @@ public interface RoverImagesContract {
 
         void setProgressIndicator(boolean active);
 
-       // void showImageDetails(String imageID);
+        void showImageDetails(Photo photo);
 
-        void showImages(Photos photos);
+        void showImages(Photos photo);
 
         void setRefreshIndicator(boolean active);
+
+        void showListEmpty(boolean isEmpty);
 
     }
 
     interface UserActionsListener {
 
         void loadImages(boolean forceUpdate, int roverID);
+
+        void openPhotoDetails(@NonNull Photo photo);
 
     }
 }

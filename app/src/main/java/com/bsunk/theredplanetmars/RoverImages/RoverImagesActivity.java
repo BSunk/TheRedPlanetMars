@@ -63,6 +63,7 @@ public class RoverImagesActivity extends AppCompatActivity {
 
     }
 
+    //Takes care of the selection in NavigationView
     public boolean navigationSelected(MenuItem item) {
         drawerLayout.closeDrawers();
         RoverImagesFragment fragment = new RoverImagesFragment();

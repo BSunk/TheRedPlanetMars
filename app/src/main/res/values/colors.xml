@@ -7,4 +7,5 @@
     <color name="nav_background">#212121</color>
     <color name="activity_background">#212121</color>
     <color name="white">#FFFFFF</color>
+    <color name="black_alpha_40">#93000000</color>
 </resources>
