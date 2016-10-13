@@ -1,7 +1,9 @@
 package com.bsunk.theredplanetmars.roverimages;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -10,10 +12,14 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,8 +28,8 @@ import com.bsunk.theredplanetmars.R;
 import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.model.Photos;
 import com.bsunk.theredplanetmars.roverimagesdetails.RoverImagesDetails;
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 /**
  * Class that displays images of selected rover. Initial rover on app open is Curiosity.
@@ -52,7 +58,6 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     @Override
     public void onResume() {
         super.onResume();
-       // mActionsListener.loadImages(false, rover);
     }
 
     @Override
@@ -141,10 +146,12 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         Intent intent = new Intent(getActivity(), RoverImagesDetails.class);
         String imageTransition = getString(R.string.image_transition_string);
         ImageView imageView = (ImageView) v.findViewById(R.id.image_item);
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), imageView, imageTransition);
         Gson gson = new Gson(); //serialize data with gson
         intent.putExtra(PHOTO_KEY, gson.toJson(photo));
-        ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
+        //ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), imageView, imageTransition);
+        //ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+        getContext().startActivity(intent, bundle);
     }
 
     @Override
@@ -176,6 +183,7 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
 
         private Context mContext;
         private ImageItemListener mItemListener;
+        int lastPosition = -1;
 
         public RoverImagesAdapter(Context context, ImageItemListener itemListener) {
             mContext = context;
@@ -194,12 +202,25 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         }
 
         @Override
+        public void onViewDetachedFromWindow(ViewHolder holder) {
+            super.onViewDetachedFromWindow(holder);
+            holder.itemView.clearAnimation();
+        }
+
+        @Override
         public void onBindViewHolder(RoverImagesAdapter.ViewHolder viewHolder, int position) {
             TextView textView = viewHolder.cameraItem;
             textView.setText(mPhotos.getPhotos().get(position).getCamera().getFullName());
             ImageView imageView = viewHolder.imageItem;
-            Glide.with(mContext).load(mPhotos.getPhotos().get(position).getImgSrc()).placeholder(R.drawable.no_pic).into(imageView);
+            Picasso.with(mContext).load(mPhotos.getPhotos().get(position).getImgSrc()).placeholder(R.drawable.no_pic).into(imageView);
+
+            Animation animation = AnimationUtils.loadAnimation(mContext,
+                    (position > lastPosition) ? R.anim.up_from_bottom
+                            : R.anim.down_from_top);
+            viewHolder.itemView.startAnimation(animation);
+            lastPosition = position;
         }
+
 
         @Override
         public int getItemCount() {

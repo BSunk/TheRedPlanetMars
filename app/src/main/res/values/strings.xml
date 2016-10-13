@@ -16,4 +16,9 @@
     <string name="no_images">No images found.</string>
     <string name="title_activity_rover_images_details">Details</string>
     <string name="image_transition_string">transition_image</string>
+
+    <!--Content Descriptions-->
+    <string name="back_button_content_description">Back</string>
+    <string name="image_detail_content_description">Image</string>
+
 </resources>

@@ -5,24 +5,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:theme="@style/AppTheme.NoActionBar"
     android:background="@color/activity_background"
-    tools:context="com.bsunk.theredplanetmars.roverimagesdetails.RoverImagesDetailsFragment"
-    tools:showIn="@layout/activity_rover_images_details">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/back_button"
-        android:src="@drawable/ic_arrow_back_black_24dp"
-        android:onClick="backButtonOnClick"
-        android:layout_gravity="top|start" />
+    tools:context="com.bsunk.theredplanetmars.roverimagesdetails.RoverImagesDetailsFragment">
 
     <ImageView
         android:id="@+id/rover_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
-        android:transitionName="@string/image_transition_string"
-        />
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/image_detail_content_description"
+        android:transitionName="@string/image_transition_string" />
+
+    <RelativeLayout
+        android:id="@+id/details_info_panel"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent">
+
+        <TextView
+            android:id="@+id/detail_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:layout_alignParentBottom="true"
+            />
+
+        <TextView
+            android:id="@+id/detail_rover_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/detail_camera" />
+
+        <TextView
+            android:id="@+id/detail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:layout_above="@+id/detail_martian_sol"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"/>
+
+        <TextView
+            android:id="@+id/detail_martian_sol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/detail_camera" />
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/back_button"
+        android:tint="@color/white"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:onClick="backButtonOnClick"
+        android:contentDescription="@string/back_button_content_description"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="@dimen/back_button_padding"
+        android:paddingEnd="@dimen/back_button_padding"
+        android:paddingTop="@dimen/back_button_padding"
+        android:layout_gravity="top|start" />
 
 </RelativeLayout>
