@@ -9,7 +9,7 @@ This is a basic android app for practicing the MVP structure and jUnit/Espresso 
  - Uses material design animations and sharedElements. 
  
 Need to implement:
- - Details Screen
+ - Details Screen (completed)
  - Adapt to tablets and landscape orientation
  - Add a date picker to select date
  - Add testing 
