@@ -1,6 +1,9 @@
 package com.bsunk.theredplanetmars.roverimagesdetails;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -14,18 +17,14 @@ public class RoverImagesDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rover_images_details);
         String obj = getIntent().getStringExtra(RoverImagesFragment.PHOTO_KEY);
+        initFragment(RoverImagesDetailsFragment.newInstance(obj));
+    }
 
-        if(savedInstanceState==null) {
-            Bundle arguments = new Bundle();
-            arguments.putString(RoverImagesFragment.PHOTO_KEY, obj);
-            RoverImagesDetailsFragment fragment = new RoverImagesDetailsFragment();
-            fragment.setArguments(arguments);
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.details_container, fragment)
-                    .commit();
-        }
-
+    private void initFragment(Fragment detailFragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.details_container, detailFragment);
+        transaction.commit();
     }
 
     public void backButtonOnClick(View view) {
