@@ -1,8 +1,5 @@
 package com.bsunk.theredplanetmars.roverimages;
 
-import android.support.annotation.NonNull;
-
-import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.model.Photos;
 
 /**
@@ -37,7 +34,9 @@ public interface RoverImagesContract {
 
     interface UserActionsListener {
 
-        void loadImages(boolean forceUpdate, int roverID);
+        void loadImages(boolean forceUpdate, int roverID, int year, int month, int day);
+
+        void openDatePicker();
 
     }
 }
