@@ -13,7 +13,6 @@ public class RoverImagesDetailsPresenter implements RoverImagesDetailsContract.U
     private final RoverImagesDetailsContract.View mDetailsView;
 
     public RoverImagesDetailsPresenter(@NonNull RoverImagesDetailsContract.View detailsView) {
-
         mDetailsView = detailsView;
     }
 

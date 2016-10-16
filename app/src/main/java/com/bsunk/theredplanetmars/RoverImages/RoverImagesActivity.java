@@ -3,6 +3,8 @@ package com.bsunk.theredplanetmars.roverimages;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +19,6 @@ public class RoverImagesActivity extends AppCompatActivity {
 
     NavigationView navigationView;
     DrawerLayout drawerLayout;
-    TextView toolbarTitle;
     int selected = 0;
 
     @Override
@@ -27,7 +28,6 @@ public class RoverImagesActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nvView);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,16 +53,24 @@ public class RoverImagesActivity extends AppCompatActivity {
             }
         });
 
+        //if restoring activity then restore fragment and title.
         if(savedInstanceState!=null) {
             selected = savedInstanceState.getInt("roverid");
+            FragmentManager fm = getSupportFragmentManager();
+            if (fm.findFragmentByTag(Integer.toString(selected))!= null) {
+                fm.beginTransaction()
+                        .replace(R.id.rover_images_container, getSupportFragmentManager().findFragmentByTag(Integer.toString(selected)), Integer.toString(selected))
+                        .commit();
+                fm.executePendingTransactions();
+            }
         }
-        launchSelectedFragment(selected);
-
+        else {launchSelectedFragment(selected);}
     }
 
     @Override
     public void onSaveInstanceState(Bundle bundle) {
         bundle.putInt("roverid", selected);
+        super.onSaveInstanceState(bundle);
     }
 
     //Takes care of the selection in NavigationView
@@ -86,32 +94,27 @@ public class RoverImagesActivity extends AppCompatActivity {
     }
 
     private void launchSelectedFragment(int selected) {
-        RoverImagesFragment fragment = new RoverImagesFragment();
-        Bundle bundle = new Bundle();
 
         if(selected==0) {
-            toolbarTitle.setText(R.string.curiosity);
-            bundle.putInt(RoverImagesPresenter.ROVER_KEY, RoverImagesPresenter.CURIOSITY);
-            fragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.rover_images_container, fragment, "curiosity")
-                    .commit();
+            FragmentManager fm = RoverImagesActivity.this.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.rover_images_container, RoverImagesFragment.newInstance(RoverImagesPresenter.CURIOSITY), Integer.toString(selected));
+            ft.commit();
+            fm.executePendingTransactions();
         }
         else if(selected==1) {
-            toolbarTitle.setText(R.string.opportunity);
-            bundle.putInt(RoverImagesPresenter.ROVER_KEY, RoverImagesPresenter.OPPORTUNITY);
-            fragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.rover_images_container, fragment, "opportunity")
-                    .commit();
+            FragmentManager fm = RoverImagesActivity.this.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.rover_images_container, RoverImagesFragment.newInstance(RoverImagesPresenter.OPPORTUNITY), Integer.toString(selected));
+            ft.commit();
+            fm.executePendingTransactions();
         }
         else if(selected==2) {
-            toolbarTitle.setText(R.string.spirit);
-            bundle.putInt(RoverImagesPresenter.ROVER_KEY, RoverImagesPresenter.SPIRIT);
-            fragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.rover_images_container, fragment, "spirit")
-                    .commit();
+            FragmentManager fm = RoverImagesActivity.this.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.rover_images_container, RoverImagesFragment.newInstance(RoverImagesPresenter.SPIRIT), Integer.toString(selected));
+            ft.commit();
+            fm.executePendingTransactions();
         }
     }
 

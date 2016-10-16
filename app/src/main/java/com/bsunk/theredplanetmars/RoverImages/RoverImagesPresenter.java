@@ -3,6 +3,7 @@ package com.bsunk.theredplanetmars.roverimages;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.bsunk.theredplanetmars.R;
 import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.model.Photos;
 import com.bsunk.theredplanetmars.rest.ApiClient;
@@ -61,10 +62,16 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
                         Log.v("LOG", e.toString());
                         mRoverImagesView.showListEmpty(true);
                         mRoverImagesView.setProgressIndicator(false);
+                        mRoverImagesView.hideToolbarTitle();
+                        mRoverImagesView.hideToolbarDate();
                         if(forceUpdate){ mRoverImagesView.setRefreshIndicator(false);}
                     }
                     @Override
                     public void onNext(Photos photos) {
+                        mRoverImagesView.setToolbarTitle(photos.getPhotos().get(0).getRover().getName());
+                        mRoverImagesView.setToolbarDate(photos.getPhotos().get(0).getEarthDate());
+                        mRoverImagesView.showToolbarTitle();
+                        mRoverImagesView.showToolbarDate();
                         mRoverImagesView.showListEmpty(false);
                         mRoverImagesView.showImages(photos);
                         mRoverImagesView.setProgressIndicator(false);
