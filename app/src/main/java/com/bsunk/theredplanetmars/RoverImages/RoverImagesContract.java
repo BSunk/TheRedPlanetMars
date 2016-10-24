@@ -10,33 +10,35 @@ public interface RoverImagesContract {
 
     interface View {
 
-        void setProgressIndicator(boolean active);
-
         void showImages(Photos photo);
 
         void setRefreshIndicator(boolean active);
 
+        void setToolbarPhotoCount(String count);
+
         void showListEmpty(boolean isEmpty);
 
-        void setToolbarTitle(String title);
+        void setToolbarTitle(int title);
+
+        void setToolbarTitleText(String title);
 
         void setToolbarDate(String date);
 
         void hideToolbarTitle();
 
-        void hideToolbarDate();
-
         void showToolbarDate();
 
         void showToolbarTitle();
+
+        void showList();
+
+        void hideList();
 
     }
 
     interface UserActionsListener {
 
         void loadImages(boolean forceUpdate, int roverID, int year, int month, int day);
-
-        void openDatePicker();
 
     }
 }

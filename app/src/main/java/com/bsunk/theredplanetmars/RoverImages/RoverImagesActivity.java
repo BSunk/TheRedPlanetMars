@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.bsunk.theredplanetmars.R;
 
@@ -64,7 +63,9 @@ public class RoverImagesActivity extends AppCompatActivity {
                 fm.executePendingTransactions();
             }
         }
-        else {launchSelectedFragment(selected);}
+        else {
+            launchSelectedFragment(selected);
+        }
     }
 
     @Override
@@ -76,6 +77,7 @@ public class RoverImagesActivity extends AppCompatActivity {
     //Takes care of the selection in NavigationView
     public boolean navigationSelected(MenuItem item) {
         drawerLayout.closeDrawers();
+        item.setChecked(true);
         switch(item.getItemId()) {
             case R.id.nav_curiosity:
                 selected=0;
@@ -96,6 +98,7 @@ public class RoverImagesActivity extends AppCompatActivity {
     private void launchSelectedFragment(int selected) {
 
         if(selected==0) {
+            navigationView.setCheckedItem(R.id.nav_curiosity);
             FragmentManager fm = RoverImagesActivity.this.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.replace(R.id.rover_images_container, RoverImagesFragment.newInstance(RoverImagesPresenter.CURIOSITY), Integer.toString(selected));

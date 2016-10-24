@@ -21,34 +21,38 @@ import static com.bsunk.theredplanetmars.BuildConfig.API_KEY;
 
 public class RoverImagesPresenter implements RoverImagesContract.UserActionsListener {
 
-    public static int CURIOSITY = 0;
-    public static int OPPORTUNITY = 1;
-    public static int SPIRIT = 2;
-    public static String ROVER_KEY = "rover_key";
+     static int CURIOSITY = 0;
+     static int OPPORTUNITY = 1;
+     static int SPIRIT = 2;
+     static String ROVER_KEY = "rover_key";
 
     private final RoverImagesContract.View mRoverImagesView;
 
-    public RoverImagesPresenter( @NonNull RoverImagesContract.View roverView) {
+     RoverImagesPresenter( @NonNull RoverImagesContract.View roverView) {
         mRoverImagesView = roverView;
     }
 
     @Override
-    public void loadImages(final boolean forceUpdate, int roverID) {
-        if(!forceUpdate) {
-        mRoverImagesView.setProgressIndicator(true); }
+    public void loadImages(final boolean forceUpdate, int roverID, int year, int month, int day) {
+        mRoverImagesView.setRefreshIndicator(true);
+        mRoverImagesView.showListEmpty(false);
+        mRoverImagesView.hideList();
+        mRoverImagesView.setToolbarTitle(roverID);
+
+        final String date = buildDate(year, month, day);
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Observable<Photos> call = apiService.getCuriosityPhotos("2016-9-1", API_KEY);
+        Observable<Photos> call = apiService.getCuriosityPhotos(date, API_KEY);
 
         switch (roverID) {
             case 0:
-                call = apiService.getCuriosityPhotos("2016-9-1", API_KEY);
+                call = apiService.getCuriosityPhotos(date, API_KEY);
                 break;
             case 1:
-                call = apiService.getOpportunityPhotos("2016-9-1", API_KEY);
+                call = apiService.getOpportunityPhotos(date, API_KEY);
                 break;
             case 2:
-                call = apiService.getSpiritPhotos("2016-9-1", API_KEY);
+                call = apiService.getSpiritPhotos(date, API_KEY);
                 break;
         }
 
@@ -61,23 +65,26 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
                     public void onError(Throwable e) {
                         Log.v("LOG", e.toString());
                         mRoverImagesView.showListEmpty(true);
-                        mRoverImagesView.setProgressIndicator(false);
-                        mRoverImagesView.hideToolbarTitle();
-                        mRoverImagesView.hideToolbarDate();
-                        if(forceUpdate){ mRoverImagesView.setRefreshIndicator(false);}
+                        mRoverImagesView.setToolbarDate(" " + date);
+                        mRoverImagesView.setRefreshIndicator(false);
+                        mRoverImagesView.setToolbarPhotoCount("");
                     }
                     @Override
                     public void onNext(Photos photos) {
-                        mRoverImagesView.setToolbarTitle(photos.getPhotos().get(0).getRover().getName());
-                        mRoverImagesView.setToolbarDate(photos.getPhotos().get(0).getEarthDate());
-                        mRoverImagesView.showToolbarTitle();
+                       // mRoverImagesView.setToolbarTitleText(photos.getPhotos().get(0).getRover().getName());
+                        mRoverImagesView.setToolbarDate(" " + photos.getPhotos().get(0).getEarthDate());
                         mRoverImagesView.showToolbarDate();
-                        mRoverImagesView.showListEmpty(false);
+                        mRoverImagesView.showList();
                         mRoverImagesView.showImages(photos);
-                        mRoverImagesView.setProgressIndicator(false);
-                        if(forceUpdate){ mRoverImagesView.setRefreshIndicator(false);}
+                        mRoverImagesView.setRefreshIndicator(false);
+                        mRoverImagesView.setToolbarPhotoCount(Integer.toString(photos.getPhotos().size()));
+
                     }
                 });
+    }
+
+    private String buildDate(int year, int month, int day) {
+        return year + "-" + month + "-" + day;
     }
 
 }

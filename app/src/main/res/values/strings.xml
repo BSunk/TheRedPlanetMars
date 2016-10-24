@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_no_photos">No Photos</string>
     <string name="title_name">Mars Rovers</string>
+    <string name="title_count">(%1$s Photos)</string>
 
     <string name="nav_drawer_curiosity">Curiosity</string>
     <string name="nav_drawer_spirit">Spirit</string>
@@ -11,16 +12,22 @@
     <string name="navigation_drawer_open">Navigation drawer open</string>
     <string name="navigation_drawer_close">Navigation drawer close</string>
 
+    <!--Rovers-->
     <string name="opportunity">Opportunity</string>
     <string name="spirit">Spirit</string>
     <string name="curiosity">Curiosity</string>
 
-    <string name="no_images">No images found.</string>
+    <string name="no_images">No images found. Please select a different date.</string>
     <string name="title_activity_rover_images_details">Details</string>
+
+    <!--Transitions-->
     <string name="image_transition_string">transition_image</string>
+    <string name="camera_transition_string">transition_camera_name</string>
 
     <!--Content Descriptions-->
     <string name="back_button_content_description">Back</string>
     <string name="image_detail_content_description">Image</string>
+
+
 
 </resources>

@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/camera_item"
             android:textSize="12sp"
+            android:transitionName="@string/camera_transition_string"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/image_item" />
 
