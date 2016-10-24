@@ -6,14 +6,15 @@ This is a basic android app for practicing the MVP structure and jUnit/Espresso 
  - Connects to NASA JSON API to retrieve images from the Mars rovers (Curiosity, Spirit, Opportunity).
  - Uses GSON, Retrofit, RxJava.
  - Able to select date of the pictures.
- - Uses material design animations and sharedElements. 
+ - Uses material design and fluid animations. 
+ - Espresso/Junit tests. 
  
 Need to implement:
  - Details Screen (completed)
  - Adapt to tablets and landscape orientation
- - Add a date picker to select date
- - Add testing 
+ - Add a date picker to select date (completed)
  - Improve drawerlayout
+ - Junit/Espresso Tests
  
  ##Screenshots
 <img src="/screenshots/Screenshot_1476215187.png" alt="image" width="400">
