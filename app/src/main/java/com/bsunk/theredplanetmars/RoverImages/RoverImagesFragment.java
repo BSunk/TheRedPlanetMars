@@ -75,6 +75,7 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     public void onSaveInstanceState(Bundle bundle) {
         Gson gson = new Gson();
         bundle.putString("data", gson.toJson(mPhotos));
+        bundle.putString("count", toolbarPhotoCount.getText().toString());
         super.onSaveInstanceState(bundle);
     }
 
@@ -85,6 +86,7 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         if(bundle!=null) {
             Gson gson = new Gson();
             mPhotos = gson.fromJson(bundle.getString("data"), Photos.class);
+            toolbarPhotoCount.setText(bundle.getString("count"));
             if(mPhotos!=null) {
                 setToolbarTitle(rover);
                 setToolbarDate(" " + mPhotos.getPhotos().get(0).getEarthDate());
