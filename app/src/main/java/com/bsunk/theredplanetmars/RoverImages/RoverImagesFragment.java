@@ -231,11 +231,11 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         TextView camNameTextView = (TextView) v.findViewById(R.id.camera_item);
 
         Pair<View, String> t1 = Pair.create((View)imageView, imageTransition);
-        Pair<View, String> t2 = Pair.create((View)camNameTextView, cameraTransition);
+       // Pair<View, String> t2 = Pair.create((View)camNameTextView, cameraTransition);
 
         Gson gson = new Gson(); //serialize data with gson
         intent.putExtra(PHOTO_KEY, gson.toJson(photo));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), t1, t2);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), t1);
         ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
     }
 

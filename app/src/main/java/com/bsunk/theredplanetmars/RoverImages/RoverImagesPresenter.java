@@ -38,6 +38,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
         mRoverImagesView.showListEmpty(false);
         mRoverImagesView.hideList();
         mRoverImagesView.setToolbarTitle(roverID);
+        mRoverImagesView.setToolbarPhotoCount("0");
 
         final String date = buildDate(year, month, day);
 
@@ -71,7 +72,6 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
                     }
                     @Override
                     public void onNext(Photos photos) {
-                       // mRoverImagesView.setToolbarTitleText(photos.getPhotos().get(0).getRover().getName());
                         mRoverImagesView.setToolbarDate(" " + photos.getPhotos().get(0).getEarthDate());
                         mRoverImagesView.showToolbarDate();
                         mRoverImagesView.showList();

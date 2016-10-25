@@ -2,20 +2,19 @@ package com.bsunk.theredplanetmars.roverimagesdetails;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.transition.Slide;
-import android.transition.TransitionInflater;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bsunk.theredplanetmars.R;
 import com.bsunk.theredplanetmars.model.Photo;
-import com.bsunk.theredplanetmars.roverimages.RoverImagesContract;
 import com.bsunk.theredplanetmars.roverimages.RoverImagesFragment;
-import com.bsunk.theredplanetmars.roverimages.RoverImagesPresenter;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -67,6 +66,16 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
         dateTextView = (TextView) rootView.findViewById(R.id.detail_date);
         martianSolTextView = (TextView) rootView.findViewById(R.id.detail_martian_sol);
         roverName = (TextView) rootView.findViewById(R.id.detail_rover_name) ;
+        RelativeLayout infoPanel = (RelativeLayout) rootView.findViewById(R.id.details_info_panel);
+        ImageButton backButton = (ImageButton) rootView.findViewById(R.id.back_button);
+
+        Animation slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.up_from_bottom );
+        infoPanel.startAnimation(slideUp);
+
+        Animation slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.down_from_top);
+        backButton.startAnimation(slideDown);
+
+
         return rootView;
     }
 

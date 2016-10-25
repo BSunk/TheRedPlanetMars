@@ -5,9 +5,9 @@
     <string name="title_name">Mars Rovers</string>
     <string name="title_count">(%1$s Photos)</string>
 
-    <string name="nav_drawer_curiosity">Curiosity</string>
-    <string name="nav_drawer_spirit">Spirit</string>
-    <string name="nav_drawer_opportunity">Opportunity</string>
+    <string name="nav_drawer_curiosity">Curiosity (Nov 2011 - Present)</string>
+    <string name="nav_drawer_spirit">Spirit (Jan 2004 - March 2010)</string>
+    <string name="nav_drawer_opportunity">Opportunity (Jan 2004 - Present)</string>
 
     <string name="navigation_drawer_open">Navigation drawer open</string>
     <string name="navigation_drawer_close">Navigation drawer close</string>
