@@ -91,6 +91,5 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
         martianSolTextView.setText(photo.getSol().toString());
         roverName.setText(photo.getRover().getName());
     }
-
-
+    
 }
