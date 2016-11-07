@@ -17,6 +17,8 @@ Need to implement:
  - Junit/Espresso Tests
  
  ##Screenshots
-<img src="/screenshots/Screenshot_1476215187.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_1476215192.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161104-192355.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161107-110536.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161107-110605.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161107-110610.png" alt="image" width="400">
 
