@@ -3,11 +3,14 @@ package com.bsunk.theredplanetmars.roverimages;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.bsunk.theredplanetmars.R;
-import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.model.Photos;
 import com.bsunk.theredplanetmars.rest.ApiClient;
 import com.bsunk.theredplanetmars.rest.ApiInterface;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -28,7 +31,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
 
     private final RoverImagesContract.View mRoverImagesView;
 
-     RoverImagesPresenter( @NonNull RoverImagesContract.View roverView) {
+    public RoverImagesPresenter( @NonNull RoverImagesContract.View roverView) {
         mRoverImagesView = roverView;
     }
 
@@ -84,7 +87,12 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
     }
 
     private String buildDate(int year, int month, int day) {
-        return year + "-" + month + "-" + day;
+        try {
+            Date date = new SimpleDateFormat("yyyy/MM/dd").parse(year + "/" + month + "/" + day);
+            String s = String.format("%1$tY-%1$tm-%1$td", date);
+            return s;
+        }
+        catch (ParseException e) {}
+        return null;
     }
-
 }

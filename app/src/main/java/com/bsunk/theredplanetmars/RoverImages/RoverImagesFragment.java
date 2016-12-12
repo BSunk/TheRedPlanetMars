@@ -1,10 +1,10 @@
 package com.bsunk.theredplanetmars.roverimages;
 
-import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -18,12 +18,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bsunk.theredplanetmars.R;
@@ -31,6 +29,7 @@ import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.model.Photos;
 import com.bsunk.theredplanetmars.roverimagesdetails.RoverImagesDetails;
 import com.google.gson.Gson;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -44,7 +43,7 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     private static RoverImagesContract.UserActionsListener mActionsListener;
     private RoverImagesAdapter mListAdapter;
     int rover = 0; //int to describe which rover to load
-    RecyclerView recyclerView;
+    FastScrollRecyclerView recyclerView;
     SwipeRefreshLayout refreshLayout;
     TextView noImages;
     TextView toolbarTitle;
@@ -137,7 +136,7 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_rover_images, container, false);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.images_list);
+        recyclerView = (FastScrollRecyclerView) rootView.findViewById(R.id.images_list);
         refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
         noImages = (TextView) rootView.findViewById(R.id.no_images_textview);
         toolbarTitle = (TextView) getActivity().findViewById(R.id.toolbar_title);
@@ -156,14 +155,16 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
                 DialogFragment newFragment = new DatePickerFragment();
                 Bundle args = new Bundle();
 
-                String[] date = parseDate(toolbarDate.getText().toString());
-                args.putInt("year", Integer.parseInt(date[0]));
-                args.putInt("month", Integer.parseInt(date[1]));
-                args.putInt("day", Integer.parseInt(date[2]));
-                args.putInt("roverid", rover);
+                if(toolbarDate.getText().toString()!="") {
+                    String[] date = parseDate(toolbarDate.getText().toString());
+                    args.putInt("year", Integer.parseInt(date[0]));
+                    args.putInt("month", Integer.parseInt(date[1]));
+                    args.putInt("day", Integer.parseInt(date[2]));
+                    args.putInt("roverid", rover);
 
-                newFragment.setArguments(args);
-                newFragment.show(getFragmentManager(), "datePicker");
+                    newFragment.setArguments(args);
+                    newFragment.show(getFragmentManager(), "datePicker");
+                }
             }
         });
 
@@ -213,8 +214,8 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         if(mListAdapter==null) {
             mListAdapter = new RoverImagesAdapter(getContext(), mItemListener);
             recyclerView.setAdapter(mListAdapter);
-            recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getInteger(R.integer.num_columns)));
+            recyclerView.setHasFixedSize(true);
         }
         else {
             mListAdapter.notifyDataSetChanged();
@@ -223,12 +224,12 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
 
     public void showImageDetails(Photo photo, View v) {
         String imageTransition = getString(R.string.image_transition_string);
-        String cameraTransition = getResources().getString(R.string.camera_transition_string);
+        //String cameraTransition = getResources().getString(R.string.camera_transition_string);
 
         Intent intent = new Intent(getActivity(), RoverImagesDetails.class);
 
         ImageView imageView = (ImageView) v.findViewById(R.id.image_item);
-        TextView camNameTextView = (TextView) v.findViewById(R.id.camera_item);
+        //TextView camNameTextView = (TextView) v.findViewById(R.id.camera_item);
 
         Pair<View, String> t1 = Pair.create((View)imageView, imageTransition);
        // Pair<View, String> t2 = Pair.create((View)camNameTextView, cameraTransition);
@@ -310,7 +311,8 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
 
 
     //RecyclerView Adapter for images on main screen.
-    public class RoverImagesAdapter extends RecyclerView.Adapter<RoverImagesAdapter.ViewHolder> {
+    public class RoverImagesAdapter extends RecyclerView.Adapter<RoverImagesAdapter.ViewHolder>
+            implements FastScrollRecyclerView.SectionedAdapter {
 
         private Context mContext;
         private ImageItemListener mItemListener;
@@ -337,6 +339,12 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
             textView.setText(mPhotos.getPhotos().get(position).getCamera().getFullName());
             ImageView imageView = viewHolder.imageItem;
             Picasso.with(mContext).load(mPhotos.getPhotos().get(position).getImgSrc()).placeholder(R.drawable.no_pic).into(imageView);
+        }
+
+        @NonNull
+        @Override
+        public String getSectionName(int position) {
+            return mPhotos.getPhotos().get(position).getCamera().getFullName();
         }
 
         @Override

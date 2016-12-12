@@ -9,14 +9,15 @@
     android:background="@color/activity_background"
     tools:context="com.bsunk.theredplanetmars.roverimagesdetails.RoverImagesDetailsFragment">
 
-    <ImageView
+    <uk.co.senab.photoview.PhotoView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rover_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:layout_centerInParent="true"
+        android:transitionName="@string/image_transition_string"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@string/image_detail_content_description"
-        android:transitionName="@string/image_transition_string" />
+        android:layout_above="@+id/details_info_panel"/>
 
     <RelativeLayout
         android:id="@+id/details_info_panel"

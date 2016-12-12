@@ -16,18 +16,23 @@ import com.bsunk.theredplanetmars.R;
 import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.roverimages.RoverImagesFragment;
 import com.google.gson.Gson;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class RoverImagesDetailsFragment extends Fragment implements RoverImagesDetailsContract.View {
 
-    ImageView imageView;
     TextView cameraTextView;
     TextView dateTextView;
     TextView martianSolTextView;
     TextView roverName;
+    PhotoView imageView;
 
     private RoverImagesDetailsContract.UserActionsListener mActionsListener;
 
@@ -49,10 +54,12 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
     public void onResume() {
         super.onResume();
         Bundle arguments = getArguments();
-        Gson gson = new Gson();
-        String obj = arguments.getString(RoverImagesFragment.PHOTO_KEY);
-        Photo photo = gson.fromJson(obj, Photo.class);
-        mActionsListener.openDetails(photo);
+        if(arguments!=null) {
+            Gson gson = new Gson();
+            String obj = arguments.getString(RoverImagesFragment.PHOTO_KEY);
+            Photo photo = gson.fromJson(obj, Photo.class);
+            mActionsListener.openDetails(photo);
+        }
     }
 
 
@@ -61,7 +68,7 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_rover_images_details, container, false);
 
-        imageView = (ImageView) rootView.findViewById(R.id.rover_image);
+        imageView = (PhotoView) rootView.findViewById(R.id.rover_image);
         cameraTextView = (TextView) rootView.findViewById(R.id.detail_camera);
         dateTextView = (TextView) rootView.findViewById(R.id.detail_date);
         martianSolTextView = (TextView) rootView.findViewById(R.id.detail_martian_sol);
@@ -75,13 +82,25 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
         Animation slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.down_from_top);
         backButton.startAnimation(slideDown);
 
-
         return rootView;
     }
 
     @Override
     public void showImage(String imageURL) {
-        Picasso.with(getContext()).load(imageURL).into(imageView);
+        final PhotoViewAttacher attacher = new PhotoViewAttacher(imageView);
+
+        Picasso.with(getContext()).invalidate(imageURL);
+        Picasso.with(getContext()).load(imageURL)
+                .into(imageView, new Callback() {
+            @Override
+            public void onSuccess() {
+                attacher.update();
+            }
+
+            @Override
+            public void onError() {
+            }
+        });
     }
 
     @Override

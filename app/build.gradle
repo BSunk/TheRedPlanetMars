@@ -7,8 +7,8 @@ android {
         applicationId "com.bsunk.theredplanetmars"
         minSdkVersion 21
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.01"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,6 +20,10 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'API_KEY', ApiKey
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 repositories {
@@ -27,18 +31,26 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile 'com.android.support:support-annotations:24.2.1'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:design:$rootProject.supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "com.android.support:appcompat-v7:24.2.1"
+    compile "com.android.support:cardview-v7:24.2.1"
+    compile "com.android.support:design:24.2.1"
+    compile "com.android.support:recyclerview-v7:24.2.1"
+    compile "com.android.support:support-v4:24.2.1"
     compile 'com.squareup.picasso:picasso:2.5.2'
 
+    //Retrofit/RxJava/Gson
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.github.chrisbanes:PhotoView:1.3.1'
+    compile 'com.simplecityapps:recyclerview-fastscroll:1.0.11'
+
+
+    // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.ext.junitVersion"
     testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
     testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
@@ -49,11 +61,24 @@ dependencies {
     androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
     androidTestCompile "com.android.support.test:rules:$rootProject.ext.rulesVersion"
 
-    //Retrofit/RxJava/Gson
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
+    // Espresso UI Testing dependencies.
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
+
 }
+configurations.all {
+    resolutionStrategy.force "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
+}
+
+/*
+All direct/transitive dependencies shared between your test and production APKs need to be
+excluded from the test APK! This is necessary because both APKs will contain the same classes. Not
+excluding these dependencies from your test configuration will result in an dex pre-verifier error
+at runtime. More info in this tools bug: (https://code.google.com/p/android/issues/detail?id=192497)
+*/
+configurations.compile.dependencies.each { compileDependency ->
+    println "Excluding compile dependency: ${compileDependency.getName()}"
+    configurations.androidTestCompile.dependencies.each { androidTestCompileDependency ->
+        configurations.androidTestCompile.exclude module: "${compileDependency.getName()}"
+    }}
