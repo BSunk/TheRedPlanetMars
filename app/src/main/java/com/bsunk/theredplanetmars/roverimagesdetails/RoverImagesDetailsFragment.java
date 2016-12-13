@@ -8,17 +8,15 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bsunk.theredplanetmars.R;
 import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.roverimages.RoverImagesFragment;
-import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -36,12 +34,7 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
 
     private RoverImagesDetailsContract.UserActionsListener mActionsListener;
 
-    public static RoverImagesDetailsFragment newInstance(String photoObj) {
-        Bundle arguments = new Bundle();
-        arguments.putString(RoverImagesFragment.PHOTO_KEY, photoObj);
-        RoverImagesDetailsFragment fragment = new RoverImagesDetailsFragment();
-        fragment.setArguments(arguments);
-        return fragment;
+    public RoverImagesDetailsFragment () {
     }
 
     @Override
@@ -55,9 +48,7 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
         super.onResume();
         Bundle arguments = getArguments();
         if(arguments!=null) {
-            Gson gson = new Gson();
-            String obj = arguments.getString(RoverImagesFragment.PHOTO_KEY);
-            Photo photo = gson.fromJson(obj, Photo.class);
+            Photo photo = Parcels.unwrap(arguments.getParcelable(RoverImagesFragment.PHOTO_KEY));
             mActionsListener.openDetails(photo);
         }
     }
@@ -89,7 +80,6 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
     public void showImage(String imageURL) {
         final PhotoViewAttacher attacher = new PhotoViewAttacher(imageView);
 
-        Picasso.with(getContext()).invalidate(imageURL);
         Picasso.with(getContext()).load(imageURL)
                 .into(imageView, new Callback() {
             @Override

@@ -32,6 +32,8 @@ import com.google.gson.Gson;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
 import java.util.Calendar;
 
 /**
@@ -224,18 +226,10 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
 
     public void showImageDetails(Photo photo, View v) {
         String imageTransition = getString(R.string.image_transition_string);
-        //String cameraTransition = getResources().getString(R.string.camera_transition_string);
-
         Intent intent = new Intent(getActivity(), RoverImagesDetails.class);
-
         ImageView imageView = (ImageView) v.findViewById(R.id.image_item);
-        //TextView camNameTextView = (TextView) v.findViewById(R.id.camera_item);
-
         Pair<View, String> t1 = Pair.create((View)imageView, imageTransition);
-       // Pair<View, String> t2 = Pair.create((View)camNameTextView, cameraTransition);
-
-        Gson gson = new Gson(); //serialize data with gson
-        intent.putExtra(PHOTO_KEY, gson.toJson(photo));
+        intent.putExtra(PHOTO_KEY, Parcels.wrap(photo));
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), t1);
         ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
     }
@@ -369,6 +363,7 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
                 mItemListener = listener;
                 imageItem = (ImageView) itemView.findViewById(R.id.image_item);
                 cameraItem = (TextView) itemView.findViewById(R.id.camera_item);
+                itemView.setOnClickListener(this);
                 itemView.setOnClickListener(this);
             }
 

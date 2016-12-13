@@ -5,10 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.bsunk.theredplanetmars.R;
+import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.roverimages.RoverImagesFragment;
+
+import org.parceler.Parcels;
 
 public class RoverImagesDetails extends AppCompatActivity {
 
@@ -16,15 +20,14 @@ public class RoverImagesDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rover_images_details);
-        String obj = getIntent().getStringExtra(RoverImagesFragment.PHOTO_KEY);
-        initFragment(RoverImagesDetailsFragment.newInstance(obj));
-    }
-
-    private void initFragment(Fragment detailFragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.details_container, detailFragment);
-        transaction.commit();
+        Photo photo = Parcels.unwrap(getIntent().getParcelableExtra(RoverImagesFragment.PHOTO_KEY));
+        RoverImagesDetailsFragment fragment = new RoverImagesDetailsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(RoverImagesFragment.PHOTO_KEY, Parcels.wrap(photo));
+        fragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.details_container, fragment)
+                .commit();
     }
 
     public void backButtonOnClick(View view) {

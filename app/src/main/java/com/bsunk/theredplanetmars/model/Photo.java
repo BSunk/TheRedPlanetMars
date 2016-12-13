@@ -1,9 +1,11 @@
-
 package com.bsunk.theredplanetmars.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Photo {
 
     @SerializedName("id")
@@ -26,7 +28,7 @@ public class Photo {
     private Rover rover;
 
     /**
-     * 
+     *
      * @return
      *     The id
      */
@@ -35,7 +37,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @param id
      *     The id
      */
@@ -44,7 +46,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @return
      *     The sol
      */
@@ -53,7 +55,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @param sol
      *     The sol
      */
@@ -62,7 +64,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @return
      *     The camera
      */
@@ -71,7 +73,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @param camera
      *     The camera
      */
@@ -80,7 +82,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @return
      *     The imgSrc
      */
@@ -89,7 +91,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @param imgSrc
      *     The img_src
      */
@@ -98,7 +100,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @return
      *     The earthDate
      */
@@ -107,7 +109,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @param earthDate
      *     The earth_date
      */
@@ -116,7 +118,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @return
      *     The rover
      */
@@ -125,7 +127,7 @@ public class Photo {
     }
 
     /**
-     * 
+     *
      * @param rover
      *     The rover
      */

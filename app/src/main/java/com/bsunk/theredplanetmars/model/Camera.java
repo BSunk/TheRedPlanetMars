@@ -1,9 +1,11 @@
-
 package com.bsunk.theredplanetmars.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Camera {
 
     @SerializedName("id")
@@ -12,15 +14,12 @@ public class Camera {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("rover_id")
-    @Expose
-    private Integer roverId;
     @SerializedName("full_name")
     @Expose
     private String fullName;
 
     /**
-     * 
+     *
      * @return
      *     The id
      */
@@ -29,7 +28,7 @@ public class Camera {
     }
 
     /**
-     * 
+     *
      * @param id
      *     The id
      */
@@ -38,7 +37,7 @@ public class Camera {
     }
 
     /**
-     * 
+     *
      * @return
      *     The name
      */
@@ -47,7 +46,7 @@ public class Camera {
     }
 
     /**
-     * 
+     *
      * @param name
      *     The name
      */
@@ -55,26 +54,9 @@ public class Camera {
         this.name = name;
     }
 
-    /**
-     * 
-     * @return
-     *     The roverId
-     */
-    public Integer getRoverId() {
-        return roverId;
-    }
 
     /**
-     * 
-     * @param roverId
-     *     The rover_id
-     */
-    public void setRoverId(Integer roverId) {
-        this.roverId = roverId;
-    }
-
-    /**
-     * 
+     *
      * @return
      *     The fullName
      */
@@ -83,7 +65,7 @@ public class Camera {
     }
 
     /**
-     * 
+     *
      * @param fullName
      *     The full_name
      */
