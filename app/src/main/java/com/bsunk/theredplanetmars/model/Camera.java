@@ -10,13 +10,13 @@ public class Camera {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    Integer id;
     @SerializedName("name")
     @Expose
-    private String name;
+    String name;
     @SerializedName("full_name")
     @Expose
-    private String fullName;
+    String fullName;
 
     /**
      *

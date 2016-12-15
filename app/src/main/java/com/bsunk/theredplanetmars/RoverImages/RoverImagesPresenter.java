@@ -40,7 +40,6 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
         mRoverImagesView.setRefreshIndicator(true);
         mRoverImagesView.showListEmpty(false);
         mRoverImagesView.hideList();
-        mRoverImagesView.setToolbarTitle(roverID);
         mRoverImagesView.setToolbarPhotoCount("0");
 
         final String date = buildDate(year, month, day);

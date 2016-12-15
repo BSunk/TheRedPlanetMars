@@ -48,7 +48,6 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     FastScrollRecyclerView recyclerView;
     SwipeRefreshLayout refreshLayout;
     TextView noImages;
-    TextView toolbarTitle;
     Photos mPhotos;
     Button toolbarDate;
     TextView toolbarPhotoCount;
@@ -71,11 +70,9 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         mActionsListener = new RoverImagesPresenter(this);
     }
 
-    //Convert the data into a Gson string and store in bundle.
     @Override
     public void onSaveInstanceState(Bundle bundle) {
-        Gson gson = new Gson();
-        bundle.putString("data", gson.toJson(mPhotos));
+        bundle.putParcelable("data", Parcels.wrap(mPhotos));
         bundle.putString("count", toolbarPhotoCount.getText().toString());
         super.onSaveInstanceState(bundle);
     }
@@ -85,11 +82,9 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     public void onViewStateRestored(Bundle bundle) {
         super.onViewStateRestored(bundle);
         if(bundle!=null) {
-            Gson gson = new Gson();
-            mPhotos = gson.fromJson(bundle.getString("data"), Photos.class);
+            mPhotos = Parcels.unwrap(bundle.getParcelable("data"));
             toolbarPhotoCount.setText(bundle.getString("count"));
             if(mPhotos!=null) {
-                setToolbarTitle(rover);
                 setToolbarDate(" " + mPhotos.getPhotos().get(0).getEarthDate());
                 showToolbarDate();
                 mListAdapter = new RoverImagesAdapter(getContext(), mItemListener);
@@ -107,12 +102,6 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
             }
         }
     }
-
-    @Override
-    public void setToolbarTitleText(String title) {
-        toolbarTitle.setText(title);
-    }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -141,7 +130,6 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         recyclerView = (FastScrollRecyclerView) rootView.findViewById(R.id.images_list);
         refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
         noImages = (TextView) rootView.findViewById(R.id.no_images_textview);
-        toolbarTitle = (TextView) getActivity().findViewById(R.id.toolbar_title);
         toolbarDate = (Button) getActivity().findViewById(R.id.toolbar_date);
         toolbarPhotoCount = (TextView) getActivity().findViewById(R.id.toolbar_photo_count);
 
@@ -235,21 +223,6 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     }
 
     @Override
-    public void setToolbarTitle(int title) {
-        switch (title) {
-            case 0:
-                toolbarTitle.setText(getString(R.string.curiosity));
-                break;
-            case 1:
-                toolbarTitle.setText(getString(R.string.opportunity));
-                break;
-            case 2:
-                toolbarTitle.setText(getString(R.string.spirit));
-                break;
-        }
-    }
-
-    @Override
     public void setToolbarPhotoCount(String count) {
         if(count.equals("")) {
             toolbarPhotoCount.setText("");
@@ -265,28 +238,15 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     }
 
     @Override
-    public void hideToolbarTitle() {
-        toolbarTitle.setAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
-        toolbarTitle.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
     public void showToolbarDate() {
         toolbarDate.setAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
         toolbarDate.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showToolbarTitle() {
-        toolbarTitle.setAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
-        toolbarTitle.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void showListEmpty(boolean isEmpty) {
         if (isEmpty) {
             noImages.setVisibility(View.VISIBLE);
-            toolbarTitle.setText(R.string.title_name);
         }
         else {
             noImages.setVisibility(View.GONE);

@@ -12,13 +12,13 @@ public class Rover {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+     Integer id;
     @SerializedName("name")
     @Expose
-    private String name;
+     String name;
     @SerializedName("cameras")
     @Expose
-    private List<Camera_> cameras = new ArrayList<Camera_>();
+     List<Camera_> cameras = new ArrayList<Camera_>();
 
     /**
      *

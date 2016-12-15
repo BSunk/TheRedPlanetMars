@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_no_photos">No Photos</string>
     <string name="title_name">Mars Rovers</string>
-    <string name="title_count">(%1$s Photos)</string>
+    <string name="title_count">%1$s Photos</string>
 
     <string name="nav_drawer_curiosity">Curiosity (Nov 2011 - Present)</string>
     <string name="nav_drawer_spirit">Spirit (Jan 2004 - March 2010)</string>

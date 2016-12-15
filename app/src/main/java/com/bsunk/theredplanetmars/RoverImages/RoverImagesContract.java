@@ -18,17 +18,9 @@ public interface RoverImagesContract {
 
         void showListEmpty(boolean isEmpty);
 
-        void setToolbarTitle(int title);
-
-        void setToolbarTitleText(String title);
-
         void setToolbarDate(String date);
 
-        void hideToolbarTitle();
-
         void showToolbarDate();
-
-        void showToolbarTitle();
 
         void showList();
 

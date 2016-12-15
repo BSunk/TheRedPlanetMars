@@ -10,22 +10,22 @@ public class Photo {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+     Integer id;
     @SerializedName("sol")
     @Expose
-    private Integer sol;
+     Integer sol;
     @SerializedName("camera")
     @Expose
-    private Camera camera;
+     Camera camera;
     @SerializedName("img_src")
     @Expose
-    private String imgSrc;
+     String imgSrc;
     @SerializedName("earth_date")
     @Expose
-    private String earthDate;
+     String earthDate;
     @SerializedName("rover")
     @Expose
-    private Rover rover;
+     Rover rover;
 
     /**
      *

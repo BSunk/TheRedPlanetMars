@@ -10,7 +10,7 @@ public class Camera_ {
 
     @SerializedName("name")
     @Expose
-    private String name;
+     String name;
 
     /**
      *
