@@ -32,5 +32,7 @@ public interface RoverImagesContract {
 
         void loadImages(boolean forceUpdate, int roverID, int year, int month, int day);
 
+        public void onDestroy();
+
     }
 }

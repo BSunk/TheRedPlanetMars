@@ -11,8 +11,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -28,6 +30,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
      static int OPPORTUNITY = 1;
      static int SPIRIT = 2;
      static String ROVER_KEY = "rover_key";
+    private Subscription subscription;
 
     private final RoverImagesContract.View mRoverImagesView;
 
@@ -48,9 +51,6 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
         Observable<Photos> call = apiService.getCuriosityPhotos(date, API_KEY);
 
         switch (roverID) {
-            case 0:
-                call = apiService.getCuriosityPhotos(date, API_KEY);
-                break;
             case 1:
                 call = apiService.getOpportunityPhotos(date, API_KEY);
                 break;
@@ -59,7 +59,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
                 break;
         }
 
-        call.subscribeOn(Schedulers.newThread())
+        subscription = call.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Photos>() {
                     @Override
@@ -93,5 +93,11 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
         }
         catch (ParseException e) {}
         return null;
+    }
+
+    public void onDestroy() {
+        if(!subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 }

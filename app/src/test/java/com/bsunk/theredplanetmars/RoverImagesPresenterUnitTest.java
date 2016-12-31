@@ -36,7 +36,6 @@ public class RoverImagesPresenterUnitTest {
         verify(mRoverImagesView).setRefreshIndicator(true);
         verify(mRoverImagesView).showListEmpty(false);
         verify(mRoverImagesView).hideList();
-        verify(mRoverImagesView).setToolbarTitle(0);
         verify(mRoverImagesView).setToolbarPhotoCount("0");
 
         verify(mRoverImagesView).setToolbarDate(" 2016-10-15");

@@ -1,5 +1,6 @@
 package com.bsunk.theredplanetmars.roverimages;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -62,6 +63,7 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -261,6 +263,11 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
     @Override
     public void hideList() {
         recyclerView.setVisibility(View.INVISIBLE);
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        mActionsListener.onDestroy();
     }
 
 

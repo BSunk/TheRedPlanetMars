@@ -1,7 +1,7 @@
 package com.bsunk.theredplanetmars.roverimages;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,9 @@ import android.util.Log;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bsunk.theredplanetmars.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoverImagesActivity extends AppCompatActivity {
 
@@ -28,14 +31,12 @@ public class RoverImagesActivity extends AppCompatActivity {
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.curiosity, R.drawable.curiosity, R.color.colorAccent);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.opportunity, R.drawable.opportunity, R.color.colorAccent);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.spirit, R.drawable.spirit, R.color.colorAccent);
-
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
 
-        bottomNavigation.setAccentColor(getResources().getColor(R.color.colorPrimary));
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.colorPrimaryDark));
         bottomNavigation.setInactiveColor(getResources().getColor(R.color.colorAccent));
-
 
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
@@ -48,6 +49,8 @@ public class RoverImagesActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
 
         //if restoring activity then restore fragment and title.
         if(savedInstanceState!=null) {
