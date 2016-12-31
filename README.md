@@ -1,6 +1,10 @@
 # TheRedPlanetMars
 View images of Mars.
 
+Updated:
+ - Add Bottom Bar for navigation and remove navigation drawer
+ - Change theme colors and add color to navigation bar
+
 This is a basic android app for practicing the MVP structure and jUnit/Espresso testing in Android. It is currently in progress.
 
  - Connects to NASA JSON API to retrieve images from the Mars rovers (Curiosity, Spirit, Opportunity).
@@ -13,8 +17,11 @@ Need to implement:
  - Junit/Espresso tests
  
  ##Screenshots
-<img src="/screenshots/Screenshot_20161104-192355.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_20161107-110536.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_20161107-110605.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_20161107-110610.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161215-002429.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161215-002449.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161215-002502.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161215-002518.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161215-002524.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161215-002539.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161215-003441.png" alt="image" width="400">
 
