@@ -8,17 +8,21 @@ import com.bsunk.theredplanetmars.model.Photo;
 
 public interface RoverImagesDetailsContract {
 
-    public interface View {
+    interface View {
 
         void showImage(String imageURL);
-
         void showInfo(Photo photo);
-
+        void requestPermissions();
+        void showShareErrorToast();
+        void onShareItem();
     }
 
-    public interface UserActionsListener {
+    interface UserActionsListener {
 
         void openDetails(Photo photo);
+        void shareButtonClick();
+        void onPermissionResultReturned(int code, int[] grantResults);
+        void noPermissionsNeeded();
 
     }
 

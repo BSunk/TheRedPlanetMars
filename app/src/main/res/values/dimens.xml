@@ -6,6 +6,6 @@
     <dimen name="rover_images_activity_horizontal_margin">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="back_button_padding">10dp</dimen>
+    <dimen name="back_button_padding">15dp</dimen>
     <integer name="num_columns">2</integer>
 </resources>

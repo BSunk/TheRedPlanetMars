@@ -85,7 +85,19 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:paddingStart="@dimen/back_button_padding"
         android:paddingEnd="@dimen/back_button_padding"
+        android:paddingTop="@dimen/back_button_padding" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/share_button"
+        android:tint="@color/white"
+        android:src="@drawable/ic_share_black_24dp"
+        android:contentDescription="@string/back_button_content_description"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="@dimen/back_button_padding"
+        android:paddingEnd="@dimen/back_button_padding"
         android:paddingTop="@dimen/back_button_padding"
-        android:layout_gravity="top|start" />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

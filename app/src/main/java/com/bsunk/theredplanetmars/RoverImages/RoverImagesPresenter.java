@@ -96,8 +96,10 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
     }
 
     public void onDestroy() {
-        if(!subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
+        if(subscription!=null) {
+            if (!subscription.isUnsubscribed()) {
+                subscription.unsubscribe();
+            }
         }
     }
 }

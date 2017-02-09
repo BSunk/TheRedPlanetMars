@@ -19,6 +19,7 @@
 
     <string name="no_images">No images found. Please select a different date.</string>
     <string name="title_activity_rover_images_details">Details</string>
+    <string name="share_image_error">Error sharing image</string>
 
     <!--Transitions-->
     <string name="image_transition_string">transition_image</string>
