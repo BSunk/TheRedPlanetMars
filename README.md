@@ -2,8 +2,7 @@
 View images of Mars.
 
 Updated:
- - Add Bottom Bar for navigation and remove navigation drawer
- - Change theme colors and add color to navigation bar
+ - Add ability to share selected image via a share intent. 
 
 This is a basic android app for practicing the MVP structure and jUnit/Espresso testing in Android. It is currently in progress.
 
@@ -11,6 +10,8 @@ This is a basic android app for practicing the MVP structure and jUnit/Espresso 
  - Uses GSON, Retrofit, RxJava.
  - Able to select date of the pictures.
  - Uses material design and fluid animations. 
+ - Uses Bottom Bar or navigation/Removed navigation drawer
+ - Theme colors
  - Espresso/Junit tests. 
  
 Need to implement:
