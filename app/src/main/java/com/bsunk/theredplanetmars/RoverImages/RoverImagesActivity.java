@@ -1,7 +1,6 @@
 package com.bsunk.theredplanetmars.roverimages;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +10,6 @@ import android.util.Log;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bsunk.theredplanetmars.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RoverImagesActivity extends AppCompatActivity {
 
@@ -49,7 +45,6 @@ public class RoverImagesActivity extends AppCompatActivity {
                 return true;
             }
         });
-
 
 
         //if restoring activity then restore fragment and title.
