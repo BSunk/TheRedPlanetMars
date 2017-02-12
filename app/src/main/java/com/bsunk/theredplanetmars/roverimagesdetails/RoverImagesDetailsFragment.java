@@ -3,6 +3,7 @@ package com.bsunk.theredplanetmars.roverimagesdetails;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bsunk.theredplanetmars.databinding.FragmentRoverImagesDetailsBinding;
 import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.roverimages.RoverImagesFragment;
 import com.squareup.picasso.Callback;
@@ -38,16 +40,9 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class RoverImagesDetailsFragment extends Fragment implements RoverImagesDetailsContract.View {
 
-    TextView cameraTextView;
-    TextView dateTextView;
-    TextView martianSolTextView;
-    TextView roverName;
-    PhotoView imageView;
-    ImageButton shareButton;
-
     String imageURL;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_STORAGE = 1;
-
+    FragmentRoverImagesDetailsBinding binding;
     private RoverImagesDetailsContract.UserActionsListener mActionsListener;
 
     public RoverImagesDetailsFragment () {
@@ -73,24 +68,16 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_rover_images_details, container, false);
-
-        imageView = (PhotoView) rootView.findViewById(R.id.rover_image);
-        cameraTextView = (TextView) rootView.findViewById(R.id.detail_camera);
-        dateTextView = (TextView) rootView.findViewById(R.id.detail_date);
-        martianSolTextView = (TextView) rootView.findViewById(R.id.detail_martian_sol);
-        roverName = (TextView) rootView.findViewById(R.id.detail_rover_name) ;
-        shareButton = (ImageButton) rootView.findViewById(R.id.share_button);
-        RelativeLayout infoPanel = (RelativeLayout) rootView.findViewById(R.id.details_info_panel);
-        ImageButton backButton = (ImageButton) rootView.findViewById(R.id.back_button);
+        binding = DataBindingUtil.setContentView(getActivity(), R.layout.fragment_rover_images_details);
 
         Animation slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.up_from_bottom );
-        infoPanel.startAnimation(slideUp);
+        binding.detailsInfoPanel.startAnimation(slideUp);
 
         Animation slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.down_from_top);
-        backButton.startAnimation(slideDown);
-        shareButton.startAnimation(slideDown);
+        binding.backButton.startAnimation(slideDown);
+        binding.shareButton.startAnimation(slideDown);
 
-        shareButton.setOnClickListener(new View.OnClickListener() {
+        binding.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mActionsListener.shareButtonClick();
@@ -103,10 +90,10 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
     @Override
     public void showImage(String url) {
         imageURL = url;
-        final PhotoViewAttacher attacher = new PhotoViewAttacher(imageView);
+        final PhotoViewAttacher attacher = new PhotoViewAttacher(binding.roverImage);
 
         Picasso.with(getContext()).load(imageURL)
-                .into(imageView, new Callback() {
+                .into(binding.roverImage, new Callback() {
                     @Override
                     public void onSuccess() {
                         attacher.update();
@@ -139,10 +126,10 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
     // Returns the URI path to the Bitmap displayed in specified ImageView
     public Uri getLocalBitmapUri() {
         // Extract Bitmap from ImageView drawable
-        Drawable drawable = imageView.getDrawable();
+        Drawable drawable = binding.roverImage.getDrawable();
         Bitmap bmp;
         if (drawable instanceof BitmapDrawable){
-            bmp = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            bmp = ((BitmapDrawable) binding.roverImage.getDrawable()).getBitmap();
         } else {
             return null;
         }
@@ -186,10 +173,7 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
 
     @Override
     public void showInfo(Photo photo) {
-        cameraTextView.setText(photo.getCamera().getFullName());
-        dateTextView.setText(photo.getEarthDate());
-        martianSolTextView.setText(photo.getSol().toString());
-        roverName.setText(photo.getRover().getName());
+        binding.setPhoto(photo);
     }
 
 }

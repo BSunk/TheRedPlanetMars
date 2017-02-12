@@ -22,6 +22,10 @@ android {
         it.buildConfigField 'String', 'API_KEY', ApiKey
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     testOptions {
         unitTests.returnDefaultValues = true
     }
