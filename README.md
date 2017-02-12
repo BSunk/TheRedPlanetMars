@@ -3,6 +3,7 @@ View images of Mars.
 
 Updated:
  - Add ability to share selected image via a share intent. 
+ - Uses DataBinding for details View. 
 
 This is a basic android app for practicing the MVP structure and jUnit/Espresso testing in Android. It is currently in progress.
 
