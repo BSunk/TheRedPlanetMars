@@ -1,6 +1,10 @@
 # TheRedPlanetMars
 View images of Mars.
 
+Updated 2/13/17:
+ - Add a favorites database using realm
+ - Add a favorites tab to the bottom navigation
+
 Updated:
  - Add ability to share selected image via a share intent. 
  - Uses DataBinding for details View. 
