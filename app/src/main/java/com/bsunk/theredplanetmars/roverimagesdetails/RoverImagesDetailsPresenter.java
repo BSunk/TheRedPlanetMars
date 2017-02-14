@@ -2,7 +2,10 @@ package com.bsunk.theredplanetmars.roverimagesdetails;
 
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.bsunk.theredplanetmars.data.RealmDatabase;
+import com.bsunk.theredplanetmars.model.FavoritePhoto;
 import com.bsunk.theredplanetmars.model.Photo;
 
 /**
@@ -12,6 +15,8 @@ import com.bsunk.theredplanetmars.model.Photo;
 public class RoverImagesDetailsPresenter implements RoverImagesDetailsContract.UserActionsListener {
 
     private final RoverImagesDetailsContract.View mDetailsView;
+    private boolean isFavorite;
+    private Photo detailsPhoto;
 
     public RoverImagesDetailsPresenter(@NonNull RoverImagesDetailsContract.View detailsView) {
         mDetailsView = detailsView;
@@ -19,8 +24,11 @@ public class RoverImagesDetailsPresenter implements RoverImagesDetailsContract.U
 
     @Override
     public void openDetails(Photo photo) {
+        detailsPhoto = photo;
         mDetailsView.showImage(photo.getImgSrc());
         mDetailsView.showInfo(photo);
+        isFavorite = RealmDatabase.isFavorite(photo.getId());
+        mDetailsView.setFavoritesButton(isFavorite);
     }
 
     @Override
@@ -43,6 +51,20 @@ public class RoverImagesDetailsPresenter implements RoverImagesDetailsContract.U
     @Override
     public void noPermissionsNeeded() {
         mDetailsView.onShareItem();
+    }
+
+    @Override
+    public void favoriteButtonOnClick() {
+        if(!isFavorite) {
+            RealmDatabase.insertFavorite(detailsPhoto.getRover().getName(), detailsPhoto.getEarthDate(),
+                    detailsPhoto.getSol(), detailsPhoto.getCamera().getName(), detailsPhoto.getImgSrc(), detailsPhoto.getId());
+            isFavorite = true;
+        }
+        else {
+            RealmDatabase.removeFavorite(detailsPhoto.getId());
+            isFavorite = false;
+        }
+        mDetailsView.setFavoritesButton(isFavorite);
     }
 
 }

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import org.parceler.Parcel;
 
 @Parcel
-public class Photo {
+public class Photo  {
 
     @SerializedName("id")
     @Expose

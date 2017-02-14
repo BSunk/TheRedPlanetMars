@@ -11,6 +11,8 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bsunk.theredplanetmars.R;
 
+import io.realm.Realm;
+
 public class RoverImagesActivity extends AppCompatActivity {
 
     int selected = 0;
@@ -19,6 +21,7 @@ public class RoverImagesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rover_images);
+        Realm.init(getApplicationContext());
         AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -27,9 +30,11 @@ public class RoverImagesActivity extends AppCompatActivity {
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.curiosity, R.drawable.curiosity, R.color.colorAccent);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.opportunity, R.drawable.opportunity, R.color.colorAccent);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.spirit, R.drawable.spirit, R.color.colorAccent);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.favorites, R.drawable.ic_favorite_black_24dp, R.color.colorAccent);
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
+        bottomNavigation.addItem(item4);
 
         bottomNavigation.setAccentColor(getResources().getColor(R.color.colorPrimaryDark));
         bottomNavigation.setInactiveColor(getResources().getColor(R.color.colorAccent));
@@ -84,6 +89,10 @@ public class RoverImagesActivity extends AppCompatActivity {
                 ft.replace(R.id.rover_images_container, RoverImagesFragment.newInstance(RoverImagesPresenter.OPPORTUNITY), Integer.toString(selected));
                 ft.commit();
             } else if (selected == 2) {
+                ft.replace(R.id.rover_images_container, RoverImagesFragment.newInstance(RoverImagesPresenter.SPIRIT), Integer.toString(selected));
+                ft.commit();
+            }
+            else if (selected == 3) {
                 ft.replace(R.id.rover_images_container, RoverImagesFragment.newInstance(RoverImagesPresenter.SPIRIT), Integer.toString(selected));
                 ft.commit();
             }

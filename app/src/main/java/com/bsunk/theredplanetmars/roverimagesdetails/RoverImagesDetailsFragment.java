@@ -17,9 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsunk.theredplanetmars.databinding.FragmentRoverImagesDetailsBinding;
@@ -35,7 +32,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class RoverImagesDetailsFragment extends Fragment implements RoverImagesDetailsContract.View {
@@ -76,11 +72,19 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
         Animation slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.down_from_top);
         binding.backButton.startAnimation(slideDown);
         binding.shareButton.startAnimation(slideDown);
+        binding.favoriteButton.startAnimation(slideDown);
 
         binding.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mActionsListener.shareButtonClick();
+            }
+        });
+
+        binding.favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mActionsListener.favoriteButtonOnClick();
             }
         });
 
@@ -120,6 +124,16 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
             startActivity(Intent.createChooser(shareIntent, "Share Image"));
         } else {
             showShareErrorToast();
+        }
+    }
+
+    @Override
+    public void setFavoritesButton(boolean isFavorite) {
+        if(isFavorite) {
+            binding.favoriteButton.setImageDrawable(getActivity().getDrawable(R.drawable.ic_favorite_black_24dp));
+        }
+        else {
+            binding.favoriteButton.setImageDrawable(getActivity().getDrawable(R.drawable.ic_favorite_border_black_24dp));
         }
     }
 
@@ -175,5 +189,7 @@ public class RoverImagesDetailsFragment extends Fragment implements RoverImagesD
     public void showInfo(Photo photo) {
         binding.setPhoto(photo);
     }
+
+
 
 }

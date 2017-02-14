@@ -1,6 +1,5 @@
 package com.bsunk.theredplanetmars.roverimages;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -29,7 +28,6 @@ import com.bsunk.theredplanetmars.R;
 import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.model.Photos;
 import com.bsunk.theredplanetmars.roverimagesdetails.RoverImagesDetails;
-import com.google.gson.Gson;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 import com.squareup.picasso.Picasso;
 
@@ -122,8 +120,6 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
         }
         setRetainInstance(true);
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -325,12 +321,11 @@ public class RoverImagesFragment extends Fragment implements RoverImagesContract
 
             ViewHolder(View itemView, ImageItemListener listener) {
                 // Stores the itemView in a public final member variable that can be used
-                // to access the context from any ViewHolder instance.
+                // to access the context from any ViewHolder instance.`
                 super(itemView);
                 mItemListener = listener;
                 imageItem = (ImageView) itemView.findViewById(R.id.image_item);
                 cameraItem = (TextView) itemView.findViewById(R.id.camera_item);
-                itemView.setOnClickListener(this);
                 itemView.setOnClickListener(this);
             }
 

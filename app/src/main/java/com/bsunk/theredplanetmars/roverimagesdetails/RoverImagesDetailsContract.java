@@ -15,6 +15,7 @@ public interface RoverImagesDetailsContract {
         void requestPermissions();
         void showShareErrorToast();
         void onShareItem();
+        void setFavoritesButton(boolean isFavorite);
     }
 
     interface UserActionsListener {
@@ -23,6 +24,7 @@ public interface RoverImagesDetailsContract {
         void shareButtonClick();
         void onPermissionResultReturned(int code, int[] grantResults);
         void noPermissionsNeeded();
+        void favoriteButtonOnClick();
 
     }
 

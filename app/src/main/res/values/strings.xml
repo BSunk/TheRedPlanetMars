@@ -12,10 +12,11 @@
     <string name="navigation_drawer_open">Navigation drawer open</string>
     <string name="navigation_drawer_close">Navigation drawer close</string>
 
-    <!--Rovers-->
+    <!--Tabs-->
     <string name="opportunity">Opportunity</string>
     <string name="spirit">Spirit</string>
     <string name="curiosity">Curiosity</string>
+    <string name="favorites">Favorites</string>
 
     <string name="no_images">No images found. Please select a different date.</string>
     <string name="title_activity_rover_images_details">Details</string>
@@ -28,7 +29,7 @@
     <!--Content Descriptions-->
     <string name="back_button_content_description">Back</string>
     <string name="image_detail_content_description">Image</string>
-
-
+    <string name="image_detail_share_content_description">Share image</string>
+    <string name="image_detail_favorite_content_description">Add to favorites</string>
 
 </resources>
