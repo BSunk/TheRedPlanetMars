@@ -1,6 +1,10 @@
 # TheRedPlanetMars
 View images of Mars.
 
+Updated 2/13/17:
+ - Add a favorites database using realm
+ - Add a favorites tab to the bottom navigation
+
 Updated:
  - Add ability to share selected image via a share intent. 
  - Uses DataBinding for details View. 
@@ -19,6 +23,11 @@ Need to implement:
  - Junit/Espresso tests
  
  ##Screenshots
+ <img src="/screenshots/Screenshot_20170213-221702.png" alt="image" width="400">
+ <img src="/screenshots/Screenshot_20170213-221706.png" alt="image" width="400">
+ <img src="/screenshots/Screenshot_20170213-221726.png" alt="image" width="400">
+ <img src="/screenshots/Screenshot_20170213-221749.png" alt="image" width="400">
+ 
 <img src="/screenshots/Screenshot_20161215-002429.png" alt="image" width="400">
 <img src="/screenshots/Screenshot_20161215-002449.png" alt="image" width="400">
 <img src="/screenshots/Screenshot_20161215-002502.png" alt="image" width="400">
