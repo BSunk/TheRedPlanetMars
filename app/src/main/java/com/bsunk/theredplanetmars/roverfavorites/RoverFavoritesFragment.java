@@ -55,15 +55,9 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
     public RoverFavoritesFragment() {}
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-        presenter = new RoverFavoritesPresenter(this);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
+        presenter = new RoverFavoritesPresenter(this);
         presenter.loadImages();
     }
 
@@ -129,10 +123,9 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
         }
 
         if(mListAdapter==null) {
-            mListAdapter = new RoverFavoritesFragment.RoverFavoritesAdapter(getContext(), mItemListener);
+            mListAdapter = new RoverFavoritesAdapter(getContext(), mItemListener);
             recyclerView.setAdapter(mListAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setHasFixedSize(true);
         }
         else {
             mListAdapter.notifyDataSetChanged();

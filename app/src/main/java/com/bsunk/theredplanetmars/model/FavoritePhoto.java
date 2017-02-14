@@ -1,5 +1,7 @@
 package com.bsunk.theredplanetmars.model;
 
+import org.parceler.Parcel;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -7,6 +9,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by Bharat on 2/13/2017.
  */
 
+@Parcel
 public class FavoritePhoto extends RealmObject {
 
     private String roverName;

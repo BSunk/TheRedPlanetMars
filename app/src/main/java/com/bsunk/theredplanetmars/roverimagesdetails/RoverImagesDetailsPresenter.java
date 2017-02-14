@@ -38,7 +38,7 @@ public class RoverImagesDetailsPresenter implements RoverImagesDetailsContract.U
 
     @Override
     public void onPermissionResultReturned(int code, int[] grantResults) {
-        if (code==RoverImagesDetailsFragment.MY_PERMISSIONS_REQUEST_WRITE_STORAGE) {
+        if (code==RoverImagesDetails.MY_PERMISSIONS_REQUEST_WRITE_STORAGE) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mDetailsView.onShareItem();
