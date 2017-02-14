@@ -61,6 +61,12 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.loadImages();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_rover_favorites, container, false);
@@ -69,9 +75,6 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
         toolbarDate = (Button) getActivity().findViewById(R.id.toolbar_date);
         toolbarDate.setVisibility(View.INVISIBLE);
         toolbarPhotoCount = (TextView) getActivity().findViewById(R.id.toolbar_photo_count);
-
-        presenter.loadImages();
-
         return rootView;
     }
 
