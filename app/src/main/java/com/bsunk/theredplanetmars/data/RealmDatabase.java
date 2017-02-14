@@ -1,7 +1,5 @@
 package com.bsunk.theredplanetmars.data;
 
-import android.util.Log;
-
 import com.bsunk.theredplanetmars.model.FavoritePhoto;
 
 import io.realm.Realm;

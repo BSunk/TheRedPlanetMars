@@ -57,7 +57,7 @@ public class RoverImagesDetailsPresenter implements RoverImagesDetailsContract.U
     public void favoriteButtonOnClick() {
         if(!isFavorite) {
             RealmDatabase.insertFavorite(detailsPhoto.getRover().getName(), detailsPhoto.getEarthDate(),
-                    detailsPhoto.getSol(), detailsPhoto.getCamera().getName(), detailsPhoto.getImgSrc(), detailsPhoto.getId());
+                    detailsPhoto.getSol(), detailsPhoto.getCamera().getFullName(), detailsPhoto.getImgSrc(), detailsPhoto.getId());
             isFavorite = true;
         }
         else {

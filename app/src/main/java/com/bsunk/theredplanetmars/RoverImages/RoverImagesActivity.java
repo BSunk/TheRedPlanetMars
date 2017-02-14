@@ -10,6 +10,7 @@ import android.util.Log;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bsunk.theredplanetmars.R;
+import com.bsunk.theredplanetmars.roverfavorites.RoverFavoritesFragment;
 
 import io.realm.Realm;
 
@@ -42,10 +43,7 @@ public class RoverImagesActivity extends AppCompatActivity {
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
-                if(position==0) { selected=0;}
-                else if (position==1) {selected=1;}
-                else if (position==2) {selected=2;}
-
+                selected = position;
                 launchSelectedFragment(selected);
                 return true;
             }
@@ -76,7 +74,6 @@ public class RoverImagesActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
 
         if (fm.findFragmentByTag(Integer.toString(selected))!= null) {
-            Log.v("LOG", String.valueOf(selected));
             fm.beginTransaction()
                     .replace(R.id.rover_images_container, getSupportFragmentManager().findFragmentByTag(Integer.toString(selected)), Integer.toString(selected))
                     .commit();
@@ -93,7 +90,7 @@ public class RoverImagesActivity extends AppCompatActivity {
                 ft.commit();
             }
             else if (selected == 3) {
-                ft.replace(R.id.rover_images_container, RoverImagesFragment.newInstance(RoverImagesPresenter.SPIRIT), Integer.toString(selected));
+                ft.replace(R.id.rover_images_container, new RoverFavoritesFragment(), Integer.toString(selected));
                 ft.commit();
             }
         }
