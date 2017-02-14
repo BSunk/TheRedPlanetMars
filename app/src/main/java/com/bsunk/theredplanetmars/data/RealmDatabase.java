@@ -38,7 +38,7 @@ public class RealmDatabase {
     public static RealmResults<FavoritePhoto> getFavorites() {
         Realm realm = Realm.getDefaultInstance();
         RealmQuery<FavoritePhoto> query = realm.where(FavoritePhoto.class);
-        return query.findAllAsync().sort("id");
+        return query.findAllAsync().sort("photoDate");
     }
 
     public static void removeFavorite(final int id) {

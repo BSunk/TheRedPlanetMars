@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,7 +131,7 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
         if(mListAdapter==null) {
             mListAdapter = new RoverFavoritesFragment.RoverFavoritesAdapter(getContext(), mItemListener);
             recyclerView.setAdapter(mListAdapter);
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getInteger(R.integer.num_columns)));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setHasFixedSize(true);
         }
         else {
@@ -157,7 +158,7 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
             // Inflate the custom layout
-            View roverView = inflater.inflate(R.layout.image_item, parent, false);
+            View roverView = inflater.inflate(R.layout.favorite_item, parent, false);
             // Return a new holder instance
             RoverFavoritesFragment.RoverFavoritesAdapter.ViewHolder viewHolder = new RoverFavoritesFragment.RoverFavoritesAdapter.ViewHolder(roverView, mItemListener);
             return viewHolder;
@@ -168,6 +169,8 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
             TextView textView = viewHolder.cameraItem;
             textView.setText(mPhotos.get(position).getCameraName());
             ImageView imageView = viewHolder.imageItem;
+            viewHolder.date.setText(mPhotos.get(position).getPhotoDate());
+            viewHolder.name.setText(mPhotos.get(position).getRoverName());
             Picasso.with(mContext).load(mPhotos.get(position).getImageURL()).placeholder(R.drawable.no_pic).into(imageView);
         }
 
@@ -190,6 +193,8 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
 
             ImageView imageItem;
             TextView cameraItem;
+            TextView name;
+            TextView date;
             private RoverFavoritesFragment.ImageItemListener mItemListener;
 
             ViewHolder(View itemView, RoverFavoritesFragment.ImageItemListener listener) {
@@ -199,6 +204,8 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
                 mItemListener = listener;
                 imageItem = (ImageView) itemView.findViewById(R.id.image_item);
                 cameraItem = (TextView) itemView.findViewById(R.id.camera_item);
+                name = (TextView) itemView.findViewById(R.id.name);
+                date = (TextView) itemView.findViewById(R.id.camera_date);
                 itemView.setOnClickListener(this);
             }
 
