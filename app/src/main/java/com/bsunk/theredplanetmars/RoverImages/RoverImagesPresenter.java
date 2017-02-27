@@ -30,7 +30,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
      static int OPPORTUNITY = 1;
      static int SPIRIT = 2;
      static String ROVER_KEY = "rover_key";
-    private Subscription subscription;
+     private Subscription subscription;
 
     private final RoverImagesContract.View mRoverImagesView;
 
@@ -59,7 +59,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
                 break;
         }
 
-        subscription = call.subscribeOn(Schedulers.newThread())
+        subscription = call.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Photos>() {
                     @Override
@@ -88,8 +88,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
     private String buildDate(int year, int month, int day) {
         try {
             Date date = new SimpleDateFormat("yyyy/MM/dd").parse(year + "/" + month + "/" + day);
-            String s = String.format("%1$tY-%1$tm-%1$td", date);
-            return s;
+            return String.format("%1$tY-%1$tm-%1$td", date);
         }
         catch (ParseException e) {}
         return null;
