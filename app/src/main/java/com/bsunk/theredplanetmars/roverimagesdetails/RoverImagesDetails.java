@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.bsunk.theredplanetmars.R;
+import com.bsunk.theredplanetmars.data.RealmFavoritesRepository;
 import com.bsunk.theredplanetmars.databinding.ActivityRoverImagesDetailsBinding;
 import com.bsunk.theredplanetmars.model.Photo;
 import com.bsunk.theredplanetmars.roverimages.RoverImagesFragment;
@@ -45,7 +46,7 @@ public class RoverImagesDetails extends AppCompatActivity implements RoverImages
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rover_images_details);
 
-        mActionsListener = new RoverImagesDetailsPresenter(this);
+        mActionsListener = new RoverImagesDetailsPresenter(this, new RealmFavoritesRepository());
         Photo photo = Parcels.unwrap(getIntent().getParcelableExtra(RoverImagesFragment.PHOTO_KEY));
         mActionsListener.openDetails(photo);
 

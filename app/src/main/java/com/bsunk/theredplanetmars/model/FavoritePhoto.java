@@ -12,14 +12,14 @@ import io.realm.annotations.PrimaryKey;
 @Parcel
 public class FavoritePhoto extends RealmObject {
 
-    private String roverName;
-    private String photoDate;
-    private int martianSol;
-    private String cameraName;
-    private String imageURL;
+    public String roverName;
+    public String photoDate;
+    public int martianSol;
+    public String cameraName;
+    public String imageURL;
 
     @PrimaryKey
-    private int id;
+    public int id;
 
     public FavoritePhoto(){}
 

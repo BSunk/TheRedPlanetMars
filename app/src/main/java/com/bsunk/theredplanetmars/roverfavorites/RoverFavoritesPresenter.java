@@ -2,7 +2,8 @@ package com.bsunk.theredplanetmars.roverfavorites;
 
 import android.support.annotation.NonNull;
 
-import com.bsunk.theredplanetmars.data.RealmDatabase;
+import com.bsunk.theredplanetmars.data.RealmFavoritesRepository;
+import com.bsunk.theredplanetmars.data.RealmFavoritesRepositoryContract;
 import com.bsunk.theredplanetmars.model.FavoritePhoto;
 
 import io.realm.RealmResults;
@@ -14,15 +15,22 @@ import io.realm.RealmResults;
 public class RoverFavoritesPresenter implements RoverFavoritesContract.Presenter{
 
     private final RoverFavoritesContract.View view;
+    private final RealmFavoritesRepositoryContract realmRepository;
 
-    RoverFavoritesPresenter(@NonNull RoverFavoritesContract.View roverView) {
+    RoverFavoritesPresenter(@NonNull RoverFavoritesContract.View roverView, @NonNull RealmFavoritesRepositoryContract realmRepo) {
         view = roverView;
+        realmRepository = realmRepo;
     }
 
     public void loadImages() {
-        RealmResults<FavoritePhoto> result =  RealmDatabase.getFavorites();
+        RealmResults<FavoritePhoto> result = realmRepository.getAll();
         view.setToolbarPhotoCount(String.valueOf(result.size()));
-        view.showImages(result);
+        if(result.size()==0) {
+            view.showEmptyView(true);
+        }
+        else {
+            view.showImages(result);
+        }
     }
 
 }
