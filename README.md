@@ -20,7 +20,7 @@ This is a basic android app for practicing the MVP structure and jUnit/Espresso 
  - Espresso/Junit tests. 
  
 Need to implement:
- - Junit/Espresso tests
+ - Junit/Espresso tests with Mockito
  
  ##Screenshots
  <img src="/screenshots/Screenshot_20170213-221702.png" alt="image" width="400">
