@@ -2,6 +2,8 @@ package com.bsunk.theredplanetmars.data;
 
 import com.bsunk.theredplanetmars.model.FavoritePhoto;
 
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
@@ -43,7 +45,7 @@ public class RealmFavoritesRepository implements RealmFavoritesRepositoryContrac
     }
 
     @Override
-    public RealmResults<FavoritePhoto> getAll() {
+    public List<FavoritePhoto> getAll() {
         RealmQuery<FavoritePhoto> query = realm.where(FavoritePhoto.class);
         return query.findAllAsync().sort("photoDate");
     }

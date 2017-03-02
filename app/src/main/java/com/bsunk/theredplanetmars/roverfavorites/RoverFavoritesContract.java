@@ -2,7 +2,7 @@ package com.bsunk.theredplanetmars.roverfavorites;
 
 import com.bsunk.theredplanetmars.model.FavoritePhoto;
 
-import io.realm.RealmResults;
+import java.util.List;
 
 /**
  * Created by Bharat on 2/13/2017.
@@ -10,7 +10,7 @@ import io.realm.RealmResults;
 
 public interface RoverFavoritesContract {
     interface View {
-        void showImages(RealmResults<FavoritePhoto> photos);
+        void showImages(List<FavoritePhoto> photos);
         void setToolbarPhotoCount(String count);
         void showEmptyView(boolean isEmpty);
     }

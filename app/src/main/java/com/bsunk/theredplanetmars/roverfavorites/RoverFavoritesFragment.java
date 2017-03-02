@@ -99,7 +99,7 @@ public class RoverFavoritesFragment extends Fragment implements RoverFavoritesCo
     }
 
     @Override
-    public void showImages(RealmResults<FavoritePhoto> photos) {
+    public void showImages(List<FavoritePhoto> photos) {
         mPhotos = photos;
         if(mListAdapter==null) {
             mListAdapter = new RoverFavoritesAdapter(getContext(), mItemListener, mPhotos);
