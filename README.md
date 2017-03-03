@@ -1,7 +1,9 @@
 # TheRedPlanetMars
 View images of Mars.
+
 Updated 3/1/17:
  - Add JUnit tests for presenters using Mockito
+ 
 Updated 2/13/17:
  - Add a favorites database using realm
  - Add a favorites tab to the bottom navigation
@@ -34,8 +36,6 @@ Need to implement:
 <img src="/screenshots/Screenshot_20161215-002502.png" alt="image" width="400">
 <img src="/screenshots/Screenshot_20161215-002518.png" alt="image" width="400">
 <img src="/screenshots/Screenshot_20161215-002524.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_20161215-002539.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_20161215-003441.png" alt="image" width="400">
 
 License
 -------
