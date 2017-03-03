@@ -47,17 +47,7 @@ public class RoverImagesPresenter implements RoverImagesContract.UserActionsList
 
         final String date = buildDate(year, month, day);
 
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Observable<Photos> call = apiService.getCuriosityPhotos(date, API_KEY);
-
-        switch (roverID) {
-            case 1:
-                call = apiService.getOpportunityPhotos(date, API_KEY);
-                break;
-            case 2:
-                call = apiService.getSpiritPhotos(date, API_KEY);
-                break;
-        }
+        Observable<Photos> call = ApiClient.getPhotosFromAPI(roverID, date);
 
         subscription = call.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
