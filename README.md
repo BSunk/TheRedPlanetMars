@@ -1,6 +1,7 @@
 # TheRedPlanetMars
 View images of Mars.
-
+Updated 3/1/17:
+ - Add JUnit tests for presenters using Mockito
 Updated 2/13/17:
  - Add a favorites database using realm
  - Add a favorites tab to the bottom navigation
@@ -20,7 +21,7 @@ This is a basic android app for practicing the MVP structure and jUnit/Espresso 
  - Espresso/Junit tests. 
  
 Need to implement:
- - Junit/Espresso tests with Mockito
+ - Espresso test
  
  ##Screenshots
  <img src="/screenshots/Screenshot_20170213-221702.png" alt="image" width="400">
