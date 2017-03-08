@@ -26,16 +26,16 @@ Need to implement:
  - Espresso test
  
  ##Screenshots
- <img src="/screenshots/Screenshot_20170213-221702.png" alt="image" width="400">
- <img src="/screenshots/Screenshot_20170213-221706.png" alt="image" width="400">
- <img src="/screenshots/Screenshot_20170213-221726.png" alt="image" width="400">
- <img src="/screenshots/Screenshot_20170213-225641.png" alt="image" width="400">
+ <img src="/screenshots/Screenshot_20170213-221702.png" alt="image" width="200">
+ <img src="/screenshots/Screenshot_20170213-221706.png" alt="image" width="200">
+ <img src="/screenshots/Screenshot_20170213-221726.png" alt="image" width="200">
+ <img src="/screenshots/Screenshot_20170213-225641.png" alt="image" width="200">
  
-<img src="/screenshots/Screenshot_20161215-002429.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_20161215-002449.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_20161215-002502.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_20161215-002518.png" alt="image" width="400">
-<img src="/screenshots/Screenshot_20161215-002524.png" alt="image" width="400">
+<img src="/screenshots/Screenshot_20161215-002429.png" alt="image" width="200">
+<img src="/screenshots/Screenshot_20161215-002449.png" alt="image" width="200">
+<img src="/screenshots/Screenshot_20161215-002502.png" alt="image" width="200">
+<img src="/screenshots/Screenshot_20161215-002518.png" alt="image" width="200">
+<img src="/screenshots/Screenshot_20161215-002524.png" alt="image" width="200">
 
 License
 -------
