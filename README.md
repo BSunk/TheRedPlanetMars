@@ -25,7 +25,8 @@ This is a basic android app for practicing the MVP structure and jUnit/Espresso 
 Need to implement:
  - Espresso test
  
- ##Screenshots
+ # Screenshots
+ 
  <img src="/screenshots/Screenshot_20170213-221702.png" alt="image" width="200">
  <img src="/screenshots/Screenshot_20170213-221706.png" alt="image" width="200">
  <img src="/screenshots/Screenshot_20170213-221726.png" alt="image" width="200">
